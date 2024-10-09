@@ -187,7 +187,7 @@ const saladMenu = {
 
 const getVegetarianSalads = (saladMenu) => {
     const meatIngredients = ["chicken", "bacon", "shrimp"];
-    let vegetarianSalads = [];
+    const vegetarianSalads = [];
     for (let saladKey in saladMenu) {
         const hasMeat = saladMenu[saladKey].ingredients.some(ingredient => meatIngredients.some(meat => ingredient.toLowerCase().includes(meat))); 
         if (!hasMeat) {
