@@ -65,8 +65,8 @@ const sum = someArrow.reduce(myFunc, 0)
 console.log(sum)
 
 
-// console.log(someArrow.length)
-// someArrow.push(5)
-// console.log(someArrow)
-// const wrongBuilding = new Houses(4, 3, 'flat')
-// console.log(wrongBuilding)
+console.log(someArrow.length)
+someArrow.push(5)
+console.log(someArrow)
+const wrongBuilding = new Houses(4, 3, 'flat')
+console.log(wrongBuilding)
