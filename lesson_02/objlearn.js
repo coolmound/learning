@@ -189,7 +189,8 @@ const getVegetarianSalads = (saladMenu) => {
     const meatIngredients = ["chicken", "bacon", "shrimp"];
     const vegetarianSalads = [];
     for (let saladKey in saladMenu) {
-        const hasMeat = saladMenu[saladKey].ingredients.some(ingredient => meatIngredients.some(meat => ingredient.toLowerCase().includes(meat))); 
+        const hasMeat = saladMenu[saladKey].ingredients.some((ingredient) => meatIngredients.some(meat => ingredient.toLowerCase().includes(meat))); 
+
         if (!hasMeat) {
             vegetarianSalads.push(saladKey);
         }
