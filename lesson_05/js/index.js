@@ -166,13 +166,33 @@ console.log(a);
 // a.innerHTML = 'hjkvgc'
 
 const menuContainer = document.getElementById("menu");
-const rightSide = document.querySelector('.rightSide')
+const rightSide = document.querySelector('.rightSide');
+
+const nameSalad = document.querySelector('#name');
+const priceSalad = document.querySelector('#price');
+const ingredientsSalad = document.querySelector('#ingredients');
+const weightSalad = document.querySelector('#weight');
+console.log(nameSalad)
+console.log(priceSalad)
+console.log(weightSalad)
+
+console.log(ingredientsSalad)
+
 
 const conclusionMenu = (a) => {
-    console.log(saladMenu[a]);
+    // console.log(saladMenu[a]);
   
-    rightSide.textContent = `${saladMenu[a].name} -  weight:${saladMenu[a].weight}; price:${saladMenu[a].price}$; ingredients: ${saladMenu[a].ingredients.join(', ')}.`;
-    
+    // rightSide.textContent = `${saladMenu[a].name}, weight:${saladMenu[a].weight}, ${saladMenu[a].price}$`;
+    let ingradientSalad ='';
+    for (let saladKey in saladMenu[a].ingredients) {
+        ingradientSalad += `<li><a href="">${saladMenu[a].ingredients[saladKey]}</a></li>`;
+     }
+    nameSalad.textContent = saladMenu[a].name;
+    priceSalad.textContent = saladMenu[a].price;
+    weightSalad.textContent = saladMenu[a].weight;
+    // ingredientsSalad.textContent = saladMenu[a].ingredients.join(', ')
+   
+    ingredientsSalad.innerHTML = ingradientSalad;
 }
 
 for (let saladKey in saladMenu) {
