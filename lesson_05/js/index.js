@@ -159,6 +159,18 @@ const getVegetarianSalads = (saladMenu) => {
 }
 const vegetarianSalads = getVegetarianSalads(saladMenu);
 // console.log(vegetarianSalads)
+const vegSalad = () => {
+    // alert('ok') 
+    // console.log(vegetarianSalads)
+    const resultVegSalat = document.querySelectorAll('#vegetarianSalad');
+    // console.log(resultVegSalat)
+    resultVegSalat.forEach(element => {
+        element.style.background = 'pink';
+        console.log(element)
+    });
+}
+    
+
 
 // console.log('jhdfnivhn')
 const a = document.querySelector('#menu')
@@ -204,9 +216,22 @@ for (let saladKey in saladMenu) {
     menuContainer.appendChild(listItem);
     // menuContainer.addEventListener("click", () => { alert('ok') })
     listItem.addEventListener("click", () => { conclusionMenu(saladKey) })
+    // console.log(vegetarianSalads.indexOf(saladKey))
+    if (vegetarianSalads.indexOf(saladKey)>-1) {
+        listItem.id = "vegetarianSalad"
+    }
+    
 //       
 }
+
+
 // const bodyEl = document.querySelector('body')
 // bodyEl.addEventListener("click", () => { alert('ok') })
 
 // document.body.innerHTML = "<div>menu</div>";
+const clickVeganMenu = document.querySelector('#clickVeganMenu');
+clickVeganMenu.addEventListener("click", () => { vegSalad() })
+
+
+
+console.log('loaded')
