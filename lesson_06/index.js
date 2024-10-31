@@ -8,7 +8,7 @@ const sum = (n) => {
         let indexNum = num[i - 1] + num[i - 2];
         num.push(indexNum)
     }
-    console.log(num)
+    
     console.log(num[i-1])
     return num.slice(0, -1).reduce((accumulator, currentValue) => accumulator + currentValue, 0)
     
