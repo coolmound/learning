@@ -24,6 +24,7 @@ li {
 
 .left_side {
     width: 30%;
+    display: block;
 
 }
 .rightSide {
