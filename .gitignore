@@ -5,3 +5,4 @@
 # squash/.env
 # # Виключити папку build
 # squash/build/
+.DS_Store
