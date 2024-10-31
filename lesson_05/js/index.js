@@ -159,6 +159,18 @@ const getVegetarianSalads = (saladMenu) => {
 }
 const vegetarianSalads = getVegetarianSalads(saladMenu);
 // console.log(vegetarianSalads)
+const vegSalad = () => {
+    // alert('ok') 
+    // console.log(vegetarianSalads)
+    const resultVegSalat = document.querySelectorAll('#vegetarianSalad');
+    // console.log(resultVegSalat)
+    resultVegSalat.forEach(element => {
+        element.style.background = 'pink';
+        console.log(element)
+    });
+}
+    
+
 
 // console.log('jhdfnivhn')
 const a = document.querySelector('#menu')
@@ -166,13 +178,33 @@ console.log(a);
 // a.innerHTML = 'hjkvgc'
 
 const menuContainer = document.getElementById("menu");
-const rightSide = document.querySelector('.rightSide')
+const rightSide = document.querySelector('.rightSide');
+
+const nameSalad = document.querySelector('#name');
+const priceSalad = document.querySelector('#price');
+const ingredientsSalad = document.querySelector('#ingredients');
+const weightSalad = document.querySelector('#weight');
+console.log(nameSalad)
+console.log(priceSalad)
+console.log(weightSalad)
+
+console.log(ingredientsSalad)
+
 
 const conclusionMenu = (a) => {
-    console.log(saladMenu[a]);
+    // console.log(saladMenu[a]);
   
-    rightSide.textContent = `${saladMenu[a].name} -  weight:${saladMenu[a].weight}; price:${saladMenu[a].price}$; ingredients: ${saladMenu[a].ingredients.join(', ')}.`;
-    
+    // rightSide.textContent = `${saladMenu[a].name}, weight:${saladMenu[a].weight}, ${saladMenu[a].price}$`;
+    let ingradientSalad ='';
+    for (let saladKey in saladMenu[a].ingredients) {
+        ingradientSalad += `<li><a href="">${saladMenu[a].ingredients[saladKey]}</a></li>`;
+     }
+    nameSalad.textContent = saladMenu[a].name;
+    priceSalad.textContent = saladMenu[a].price;
+    weightSalad.textContent = saladMenu[a].weight;
+    // ingredientsSalad.textContent = saladMenu[a].ingredients.join(', ')
+   
+    ingredientsSalad.innerHTML = ingradientSalad;
 }
 
 for (let saladKey in saladMenu) {
@@ -184,9 +216,22 @@ for (let saladKey in saladMenu) {
     menuContainer.appendChild(listItem);
     // menuContainer.addEventListener("click", () => { alert('ok') })
     listItem.addEventListener("click", () => { conclusionMenu(saladKey) })
+    // console.log(vegetarianSalads.indexOf(saladKey))
+    if (vegetarianSalads.indexOf(saladKey)>-1) {
+        listItem.id = "vegetarianSalad"
+    }
+    
 //       
 }
+
+
 // const bodyEl = document.querySelector('body')
 // bodyEl.addEventListener("click", () => { alert('ok') })
 
 // document.body.innerHTML = "<div>menu</div>";
+const clickVeganMenu = document.querySelector('#clickVeganMenu');
+clickVeganMenu.addEventListener("click", () => { vegSalad() })
+
+
+
+console.log('loaded')

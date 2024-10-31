@@ -1,0 +1,7 @@
+# squash/node_modules/
+# # Виключити node_modules
+
+# # Виключити файли конфігурації
+# squash/.env
+# # Виключити папку build
+# squash/build/

@@ -5,6 +5,11 @@ body {
     padding: 20px;
     display: flex;
 }
+li {
+  
+    margin: 10px;
+
+}
 .my-class {
     border: 2px solid;
     border-color: rgb(164, 159, 159);
@@ -19,8 +24,36 @@ body {
 
 .left_side {
     width: 30%;
+    display: block;
 
 }
 .rightSide {
 width: 70%;
+}
+.wrappeer{
+display: grid;
+    grid-auto-flow:row;
+    
+}
+
+.listMenu {
+border: 2px solid;
+    border-color: rgb(164, 159, 159);
+    border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+}
+.listMenu-ingredients{
+border: 2px solid;
+    border-color: rgb(164, 159, 159);
+    border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+.Description{
+    margin: 5px;
+    padding: 5px;
 }
