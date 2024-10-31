@@ -9,7 +9,9 @@ const sum = (n) => {
         num.push(indexNum)
     }
     console.log(num)
-    return num.reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+    console.log(num[i-1])
+    return num.slice(0, -1).reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+    
     }
 
-    console.log (sum(5))
+console.log(sum(10))
