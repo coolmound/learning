@@ -23,8 +23,13 @@ if (title.length === 0 || title.length > 100) {
   }
 
   addTask(title, description);
-  formToDo.reset();
+    formToDo.reset();
+    
+    
 });
+
+
+
 
 function addTask(title, description) {
     const taskItem = document.createElement('li');
@@ -54,9 +59,11 @@ function addTask(title, description) {
     moveDownButton.className = 'move-down-button';
     moveDownButton.textContent = 'Move Down';
 
+
     deleteButton.addEventListener('click', () => {
-    taskItem.remove();
-    });
+    taskItem.remove(); 
+    saveTasksToLocalStorage(); 
+});
     
     taskTitle.addEventListener('click', () => {
         taskTitle.classList.toggle('completed');
@@ -67,6 +74,7 @@ function addTask(title, description) {
         if (prevTask) {
             listTask.insertBefore(taskItem, prevTask);
         }
+        saveTasksToLocalStorage();
     });
 
     
@@ -75,6 +83,7 @@ function addTask(title, description) {
         if (nextTask) {
             listTask.insertBefore(nextTask, taskItem);
         }
+        saveTasksToLocalStorage();
     });
 
 
@@ -83,11 +92,36 @@ function addTask(title, description) {
     taskItem.appendChild(taskTitle);
     taskItem.appendChild(taskContant);
     taskContant.appendChild(taskDescription);
-    
     taskItem.appendChild(moveUpButton);
     taskItem.appendChild(moveDownButton);
-    taskItem.appendChild(deleteButton);
+    taskItem.appendChild(deleteButton); 
 
-   
+    saveTasksToLocalStorage();
+    
 }
 
+function saveTasksToLocalStorage() {
+    const tasks = [];
+    document.querySelectorAll('.task-item').forEach((taskItem) => {
+        const title = taskItem.querySelector('.task-title').textContent;
+        const description = taskItem.querySelector('.task-description').textContent;
+        const completed = taskItem.querySelector('.task-title').classList.contains('completed');
+        tasks.push({ title, description, completed });
+    });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function loadTasksFromLocalStorage() {
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    tasks.forEach((task) => {
+        addTask(task.title, task.description);
+        const lastTask = listTask.lastChild;
+        if (task.completed) {
+            lastTask.querySelector('.task-title').classList.add('completed');
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadTasksFromLocalStorage();
+});

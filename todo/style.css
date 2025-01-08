@@ -30,16 +30,7 @@
     width: 50px;
     margin-left: 10px;
 }
-/* .row{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #F5FFFA;
-    border: 0.3px solid gray;
-    border-radius: 30px;
-    padding-left: 20px;
-    margin-bottom: 20px;
-} */
+
 .form-todo{
 display: flex;
 flex-direction: column;
@@ -69,6 +60,13 @@ input{
     border-radius: 30px;
     margin-bottom: 40px;
 }
+.add-button:hover,
+.delete-button:hover,
+.move-up-button:hover,
+.move-down-button:hover {
+    background: #007b83;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 ul li {
     list-style: none;
     font-size: 20px;
@@ -76,6 +74,9 @@ ul li {
     user-select: none;
     cursor: pointer;
     position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     margin-bottom: 10px;
+    transition: all 0.3s ease-in-out;
 }
 
 ul li::before {
