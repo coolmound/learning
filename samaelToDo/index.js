@@ -1,4 +1,3 @@
-// addRecord ми створюємо новий запис
 const addRecord = () => {
   const title = document.querySelector(`#title`).value;
   const body = document.querySelector(`#body`).value;
@@ -6,43 +5,63 @@ const addRecord = () => {
   renderElements();
 };
 
-// removeRecord видаляємо рекрод по ключу
 const removeRecord = (item) => {
-  localStorage.removeItem(item);
+  localStorage.removeItem(`${item}`);
   renderElements();
 };
 
-// це наш контейнер списка
 const parentList = document.getElementById("parent-list");
+let myArray = [];
 
-const renderElements = () => {
-  // тут ми чистемо контейнер для подальшого рендеру
+const renderElements = (array) => {
   parentList.innerHTML = "";
-  // циклом проходимось по сторажу та створюємо елементи списку
-  for (let i = 0; i < localStorage.length; i++) {
-    // сам елемент
-    const li = document.createElement("li");
-    // кнопочка видалення
-    const button = document.createElement("button");
-    button.textContent = "delete";
-    button.onclick = () => {
-      removeRecord(localStorage.key(i));
-    };
-
-    // тут ми в нашу створену лішку вписуєм її значення
-    li.textContent = `${localStorage.key(i)} --- ${localStorage.getItem(
-      localStorage.key(i)
-    )}`;
-    // причипляємо кнопку делейт, яка має кожна свою фуенкцію делейт, та з параметром угікального ключа
-    li.appendChild(button);
-    // вмонтовуємо в наш список нашу лішку з кнопочкой
-    parentList.appendChild(li);
+  if (!array) {
+    myArray.length = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+      myArray.push([
+        localStorage.key(i),
+        localStorage.getItem(localStorage.key(i)),
+      ]);
+    }
   }
+  myArray.map((el) => {
+    const li = document.createElement("li");
+    const buttonContainer = document.createElement("div");
+    const deleteButton = document.createElement("button");
+    const upButton = document.createElement("button");
+    const downButton = document.createElement("button");
+
+    deleteButton.textContent = "delete";
+    deleteButton.onclick = () => {
+      removeRecord(el[0]);
+    };
+    buttonContainer.appendChild(deleteButton);
+
+    upButton.textContent = "up";
+    upButton.onclick = () => {
+      moveUp(el[0]);
+    };
+    buttonContainer.appendChild(upButton);
+
+    downButton.textContent = "down";
+    downButton.onclick = () => {
+      moveDown(el[0]);
+    };
+    buttonContainer.appendChild(downButton);
+
+    li.textContent = `${el[0]} --- ${el[1]}`;
+    li.appendChild(buttonContainer);
+    parentList.appendChild(li);
+  });
 };
 
-// на старті кода виконуємо рендер, він очистить контейнер списку та напхає туди інфу ))))) 
-renderElements();
+const moveUp = (arg) => {
+  const y = myArray.findIndex((el) => el[0] === arg);
+  console.log(y);
+  [myArray[y], myArray[y - 1]] = [myArray[y - 1], myArray[y]];
+  renderElements(true);
+};
 
-// враховуй те що title є ключ, він УНІКАЛЕН в сторажі, тобто якщо ти намагається робити такий же самий то воно просто перетре твох данні
-// доречі, я не запускав мікросервіс з ВС Кода, а просто відкрив файл index.html, фіг знає шо там той сервіс робить кожи шо воно ото таке не то ))) 
-// З.І. розбирись, оформи красиво )))  головне розбирись, якщо прибрати коменти то побачиш як локанічно я прозоро все, прибреи коменти ))) 
+const moveDown = (arg) => {};
+
+renderElements();
