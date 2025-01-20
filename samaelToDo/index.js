@@ -1,3 +1,4 @@
+// hello word from Samael
 // addRecord ми створюємо новий запис
 const addRecord = () => {
   const title = document.querySelector(`#title`).value;
