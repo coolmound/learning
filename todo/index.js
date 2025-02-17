@@ -1,93 +1,99 @@
-const formToDo = document.querySelector('.form-todo');
-const inputTitle = document.querySelector('#input-title');
-const inputDescription = document.querySelector('#input-description');
-const listTask = document.querySelector('#list-container');
-const addButton = document.querySelector('.add-button');
+const addRecord = () => {
+  const title = document.querySelector(`#title`).value;
+  const body = document.querySelector(`#body`).value;
+  const idea = document.querySelector(`#idea`).value;
+  localStorage.setItem(
+    title,
+    convertData({ body: body, idea: idea, index: localStorage.length })
+  );
 
+  renderElements();
+};
+const removeRecord = (_id) => {
+  renderElements();
+};
+const convertData = (arg) => {
+  // console.log(typeof arg);
+  // debugger;
+  if (typeof arg === "string") {
+    return JSON.parse(arg);
+  } else if (typeof arg === "object" && arg !== null) {
+    return JSON.stringify(arg);
+  }
+};
+// console.log(convertData('{"result":true, "count":42}'));
+// console.log(convertData({ petz: 1, decl: 2, kukusya: 3 }));
 
-// Event listener for adding tasks
-formToDo.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const title = inputTitle.value.trim();
-    const description = inputDescription.value.trim();
+const parentList = document.getElementById("parent-list");
+let myArray = [];
 
-if (title.length === 0 || title.length > 100) {
-    alert('Task title must be between 1 and 100 characters.');
-    return;
+const renderElements = (array) => {
+  parentList.innerHTML = "";
+  if (!array) {
+    myArray.length = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+      // console.log(localStorage.getItem(localStorage.key(i)));
+      const itemData = localStorage.getItem(localStorage.key(i));
+      const itemDataObj = convertData(itemData);
+      // console.log(itemDataObj);
+      myArray.push({
+        key: itemDataObj.index,
+        title: localStorage.key(i),
+        body: itemDataObj.body,
+        idea: itemDataObj.idea,
+        // localStorage.key(i),
+        // localStorage.getItem(localStorage.key(i)),
+      });
+    }
   }
 
-  if (description.length > 500) {
-    alert('Task description must not exceed 500 characters.');
-    return;
-  }
+  const renderCallBack = (el) => {
+    const li = document.createElement("li");
+    const buttonContainer = document.createElement("div");
+    const deleteButton = document.createElement("button");
+    const upButton = document.createElement("button");
+    const downButton = document.createElement("button");
 
-  addTask(title, description);
-  formToDo.reset();
-});
+    console.log(el);
 
-function addTask(title, description) {
-    const taskItem = document.createElement('li');
-    taskItem.className = 'task-item'
+    deleteButton.textContent = "delete";
+    deleteButton.onclick = () => {
+      removeRecord(el.title);
+    };
+    buttonContainer.appendChild(deleteButton);
 
-    const taskTitle = document.createElement('p');
-    taskTitle.className = 'task-title'
-    taskTitle.textContent = title;
+    upButton.textContent = "up";
+    upButton.onclick = () => {
+      moveUp(el.key);
+    };
+    buttonContainer.appendChild(upButton);
 
+    downButton.textContent = "down";
+    downButton.onclick = () => {
+      moveDown(el.key);
+    };
+    buttonContainer.appendChild(downButton);
+    // const objectData = convertData(el[1]);
+    // // console.log(el[1]);
 
-    const taskContant = document.createElement('div');
-    taskContant.className = 'description-block';
+    li.textContent = `${el.key} ${el.title}---${el.body}--- ${el.idea}`;
 
-    const taskDescription = document.createElement('h3');
-    taskDescription.className = 'task-description';
-    taskDescription.textContent = description;
-    
-    const deleteButton = document.createElement('button');
-    deleteButton.className = 'delete-button';
-    deleteButton.textContent = 'Delete';
+    li.appendChild(buttonContainer);
+    parentList.appendChild(li);
+  };
+  const sortCallback = (a, b) => a.key - b.key;
 
-    const moveUpButton = document.createElement('button');
-    moveUpButton.className = 'move-up-button';
-    moveUpButton.textContent = 'Move Up';
+  myArray.sort(sortCallback).map(renderCallBack);
+};
 
-    const moveDownButton = document.createElement('button');
-    moveDownButton.className = 'move-down-button';
-    moveDownButton.textContent = 'Move Down';
+const moveUp = (arg) => {
+  const y = myArray.findIndex((el) => el[0] === arg);
+  // console.log(y);
+  [myArray[y], myArray[y - 1]] = [myArray[y - 1], myArray[y]];
+  renderElements(true);
+};
 
-    deleteButton.addEventListener('click', () => {
-    taskItem.remove();
-    });
-    
-    taskTitle.addEventListener('click', () => {
-        taskTitle.classList.toggle('completed');
-    });
+const moveDown = (arg) => {};
 
-    moveUpButton.addEventListener('click', () => {
-        const prevTask = taskItem.previousElementSibling;
-        if (prevTask) {
-            listTask.insertBefore(taskItem, prevTask);
-        }
-    });
-
-    
-    moveDownButton.addEventListener('click', () => {
-        const nextTask = taskItem.nextElementSibling;
-        if (nextTask) {
-            listTask.insertBefore(nextTask, taskItem);
-        }
-    });
-
-
-    taskItem.appendChild(taskTitle);
-    listTask.appendChild(taskItem);
-    taskItem.appendChild(taskTitle);
-    taskItem.appendChild(taskContant);
-    taskContant.appendChild(taskDescription);
-    
-    taskItem.appendChild(moveUpButton);
-    taskItem.appendChild(moveDownButton);
-    taskItem.appendChild(deleteButton);
-
-   
-}
-
+renderElements();
+//рудд

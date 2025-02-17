@@ -1,8 +1,1 @@
-# squash/node_modules/
-# # Виключити node_modules
-
-# # Виключити файли конфігурації
-# squash/.env
-# # Виключити папку build
-# squash/build/
-.DS_Store
+lesson_07/back/node_modules
